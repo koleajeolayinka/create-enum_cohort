@@ -9,11 +9,24 @@ const config = {
             center: true,
             padding: '2rem',
             screens: {
-                '2xl': '1400px',
+                sm: '640px',
+                md: '768px',
+                lg: '1024px',
+                xl: '1280px',
             },
         },
         extend: {
+            boxShadow: {
+                custom: '0px 8px 16px 0px rgba(240, 249, 255, 1)',
+            },
             colors: {
+                enumGrey: '#475661',
+                enumGray2: '#1E323F',
+                enumGrey4: '#D0DCE4',
+                enumBlue: '#008EEF',
+                enumPurple: '#8F47F4',
+                enumTransparentWhite: 'rgba(255, 255, 255, 0.40)',
+                enumSteelBlue: 'rgba(0, 61.23, 103.06, 0.50)',
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
                 ring: 'hsl(var(--ring))',

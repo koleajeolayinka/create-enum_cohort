@@ -1,13 +1,16 @@
+'use client';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import React from 'react';
 import './globals.css';
+import { dmSans } from './fonts';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import Header from '@/components/shared/Header'; // Import your Redux store
 
-const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-    title: 'Enum',
-    description: '',
-};
+// export const metadata: Metadata = {
+//     title: 'Enum',
+//     description: '',
+// };
 
 export default function RootLayout({
     children,
@@ -19,8 +22,11 @@ export default function RootLayout({
             <head>
                 <meta charSet="utf-8" />
                 <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+                <title>Enum</title>
             </head>
-            <body className={inter.className}>{children}</body>
+            <body className={dmSans.className}>
+                <Provider store={store}>{children}</Provider>
+            </body>
         </html>
     );
 }
