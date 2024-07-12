@@ -1,8 +1,10 @@
+import { ibmPlexSerif } from "@/app/fonts";
+
 const LearnPage = () => {
     return (
-        <div>
-            <h1>Learn Page</h1>
-        </div>
+        <main className={'w-full pt-3 px-10 '}>
+            <h1 className={`${ibmPlexSerif.className} text-enumGray2  text-2xl `}>Learners</h1>
+        </main>
     );
 };
 
