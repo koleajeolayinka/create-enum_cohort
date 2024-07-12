@@ -1,7 +1,7 @@
 // src/app/store/cohortsSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface DataItem {
+export interface DataItem {
     id: number;
     name: string;
     description: string;

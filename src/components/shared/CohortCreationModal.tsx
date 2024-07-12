@@ -23,9 +23,12 @@ import { toast } from '@/components/ui/use-toast';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addCohort } from '@/app/store/cohortsSlice';
+import {DataItem} from '@/app/store/cohortsSlice'
 
 interface CohortCreationModalProps {
     setShowCohortForm: (show: boolean) => void;
+    handleSubmit: (cohortData: DataItem) => void; // Use CohortData type here
+
 }
 
 const FormSchema = z.object({
@@ -51,19 +54,35 @@ const CohortCreationModal: React.FC<CohortCreationModalProps> = ({ setShowCohort
             image: '',
         },
     });
+    // programs: programs.join(", "), // Join the array into a comma-separated string
+
     const onSubmit = (data: FormValues) => {
         // dispatch(addCohort(data));
-        dispatch(
-            addCohort({
-                ...data,
-                id: Date.now(), // You'll need a more robust ID generation in production
-                programs: programs,
-                date: `${format(data.startDate, 'PPP')}`,
-            })
-        );
+        // dispatch(
+        //     addCohort({
+        //         ...data,
+        //         id: Date.now(),
+        //         programs: programs.join(", "),
+        //         date: `${format(data.startDate, 'PPP')}`,
+        //     })
+        // );
+        //
+        // setShowCohortForm(false);
+        // console.log(data);
+        const cohortData: DataItem = {
+            id: Date.now(), // Unique identifier
+            name: data.name,
+            description: data.description,
+            // startDate: data.startDate,
+            // endDate: data.endDate,
+            image: data.image || "",
+            programs: programs.join(', '),  // Make sure programs is an array of strings
+            date: `${format(data.startDate, "PPP")} - ${format(data.endDate, "PPP")}`,
+        };
 
+        dispatch(addCohort(cohortData)); // Dispatch the action with the correct type
         setShowCohortForm(false);
-        console.log(data);
+
     };
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

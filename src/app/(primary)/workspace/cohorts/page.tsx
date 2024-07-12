@@ -7,20 +7,16 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store/store';
 import { addCohort } from '@/app/store/cohortsSlice';
+import { DataItem }  from '@/app/store/cohortsSlice'; // Import DataItem from your Redux slice
+
 
 const CohortsPage = () => {
-    interface CohortData {
-        name: string;
-        description: string;
-        startDate: Date;
-        endDate: Date;
-    }
+
     const dispatch = useDispatch<AppDispatch>();
     const cohorts = useSelector((state: RootState) => state.cohorts.cohorts);
     const [showCohortForm, setShowCohortForm] = useState(false);
     // Access cohorts from the Redux store
-
-    const handleSubmit = (cohortData: CohortData) => {
+    const handleSubmit = (cohortData: DataItem) => {
         dispatch(addCohort(cohortData));
         setShowCohortForm(false);
     };
@@ -52,7 +48,7 @@ const CohortsPage = () => {
                 <CohortCreationModal
                     setShowCohortForm={setShowCohortForm}
                     handleSubmit={handleSubmit}
-                    name="" // Pass empty initial values
+                    // name="" // Pass empty initial values
                 />
             )}
         </main>
