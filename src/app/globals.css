@@ -72,7 +72,7 @@
 @layer base {
     * {
         @apply border-border;
-        color: var(--enumGrey,#475661);
+        color: #475661;
     }
 {
     .navButton {
