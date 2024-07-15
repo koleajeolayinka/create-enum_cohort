@@ -1,10 +1,5 @@
-import Header from '@/components/shared/Header';
-import CompanySection from '@/components/shared/CompanySection';
+import { redirect } from 'next/navigation';
+
 export default function Home() {
-    return (
-        <>
-            <CompanySection />
-            <main>Workspaces</main>
-        </>
-    );
+    redirect('/workspace');
 }

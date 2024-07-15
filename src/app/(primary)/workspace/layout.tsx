@@ -16,7 +16,7 @@ const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children }) => {
         <LearnHortSideMenu
           activeTab={activeTab}
           setActiveTab={setActiveTab} // Pass setActiveTab function to LearnHortSideMenu
-        />{" "}
+        />
         {children}
       </section>
     </>
