@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    .enumBlue {
+        color: #008EEF;
+    }
     :root {
         --enumGrey: '#475661';
 
@@ -36,6 +39,7 @@
 
         /*--radius: 0.5rem;*/
         --radius: 8px;
+        --enumBlue: '#008EEF'
     }
 
     .dark {
@@ -68,6 +72,7 @@
         --ring: 212.7 26.8% 83.9%;
     }
 }
+
 
 @layer base {
     * {

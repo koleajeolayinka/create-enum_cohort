@@ -25,7 +25,8 @@ const HeaderNav = () => {
                                         : "p-2 px-6 m-2 "
                                 }
                             >
-                                <h4 className={"max-[1024px]:text-xxs"}>{item}</h4>
+                                {/*<h4 className={isActive(item) ? "text-enumBlue max-[1024px]:text-xxs ": "max-[1024px]:text-xxs" }>{item}</h4>*/}
+                                <h4 className={`${isActive(item) ? "text-enumBlue " : ""}max-[1024px]:text-xxs`}>{item}</h4>
                             </button>
                         </Link>
                     </li>

@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FiUser } from 'react-icons/fi';
 import { FiMoreVertical } from 'react-icons/fi';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
 interface CardProps {
     id: number;
@@ -16,8 +17,11 @@ const Card = ({ name, description, image, programs, date }: CardProps) => {
     return (
         <div className="bg-white border border-solid border-[#F6FCFF] rounded-lg shadow-custom flex items-center justify-between">
             <div className={'flex'}>
-                <div className={'items-center flex rounded-lg'}>
-                    <Image src={image} alt={'image'} width={59} height={59} />
+                <div className={'items-center flex rounded-lg '}>
+                    <Avatar className={'items-center flex rounded-lg justify-center bg-enumGrey4'} style={{ width: '59px', height: '59px' }}>
+                        <AvatarImage src={image} style={{ width: '59px', height: '59px' }} />
+                        <AvatarFallback>{name.slice(0, 2)}</AvatarFallback>
+                    </Avatar>
                 </div>
                 <div className="p-4 ">
                     <h1 className="text-xxs font-bold text-enumGray2">{name}</h1>

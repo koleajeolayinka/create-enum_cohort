@@ -242,7 +242,7 @@ const CohortCreationModal: React.FC<CohortCreationModalProps> = ({ setShowCohort
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <FormControl>
-                                                    <button className="flex items-center justify-center pl-3 text-left font-normal border rounded-md py-2 min-w-[200px] px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    <button className="flex items-center justify-center pl-3 text-left font-normal border rounded-md py-2 w-[268px] px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                         {field.value &&
                                                         format(new Date(), 'PPP') !== format(field.value, 'PPP') ? (
                                                             format(field.value, 'PPP')
@@ -276,7 +276,7 @@ const CohortCreationModal: React.FC<CohortCreationModalProps> = ({ setShowCohort
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <FormControl>
-                                                    <button className="min-w-[200px] flex justify-center items-center pl-3 text-left font-normal border rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    <button className="w-[268px] flex justify-center items-center pl-3 text-left font-normal border rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                         {field.value &&
                                                         format(new Date(), 'PPP') !== format(field.value, 'PPP') ? (
                                                             format(field.value, 'PPP')
