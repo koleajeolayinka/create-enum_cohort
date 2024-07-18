@@ -47,7 +47,7 @@ const LearnHortSideMenu: React.FC<LearnHortSideMenuProps> = ({
               }
             >
               <button
-                className={`flex gap-[14px] items-center p-2 px-10 rounded-[300px] m-2 max-md:p1 ${
+                className={`flex gap-[14px] items-center p-2 px-10 rounded-[300px] m-2 max-md:p1 hover:bg-[#F6FCFF] ${
                   isActive(item.name) ? "bg-[#F6FCFF] text-enumBlue" : ""
                 }`}
                 onClick={() => setActiveTab(item.name)}

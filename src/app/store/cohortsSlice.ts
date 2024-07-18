@@ -1,4 +1,3 @@
-// src/app/store/cohortsSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface DataItem {
@@ -18,13 +17,16 @@ const initialState: CohortsState = {
     cohorts: [],
     showForm: false, // Initial state for form visibility
 };
-
 const cohortsSlice = createSlice({
     name: 'cohorts',
     initialState,
     reducers: {
         addCohort: (state, action: PayloadAction<DataItem>) => {
-            state.cohorts.push(action.payload);
+            const { id } = action.payload;
+            const exists = state.cohorts.find(cohort => cohort.id === id);
+            if (!exists) {
+                state.cohorts.push(action.payload);
+            }
         },
         openForm: (state) => {
             state.showForm = true;
@@ -33,6 +35,17 @@ const cohortsSlice = createSlice({
             state.showForm = false;
         },
     },
+    // reducers: {
+    //     addCohort: (state, action: PayloadAction<DataItem>) => {
+    //         state.cohorts.push(action.payload);
+    //     },
+    //     openForm: (state) => {
+    //         state.showForm = true;
+    //     },
+    //     closeForm: (state) => {
+    //         state.showForm = false;
+    //     },
+    // },
 });
 
 export const { addCohort, openForm, closeForm } = cohortsSlice.actions;

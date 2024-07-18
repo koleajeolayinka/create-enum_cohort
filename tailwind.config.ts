@@ -25,6 +25,8 @@ const config = {
                 enumGrey4: '#D0DCE4',
                 enumBlue: '#008EEF',
                 enumPurple: '#8F47F4',
+                EnumDarkblue: '#AAB7DB',
+                EnumDarkblue2: '#142E70',
                 enumTransparentWhite: 'rgba(255, 255, 255, 0.40)',
                 enumSteelBlue: 'rgba(0, 61.23, 103.06, 0.50)',
                 border: 'hsl(var(--border))',

@@ -56,12 +56,12 @@ const CohortDisplay: React.FC<DataDisplayProps> = ({ cohorts }) => {
 
                 <div className={'flex gap-[11px]'}>
                     <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-blue-500 focus:ring-offset-2"
+                        className="bg-blue-500  text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-blue-500 focus:ring-offset-2"
                         onClick={handleOpenForm}
                     >
                         Create a cohort
                     </button>
-                    <button className="bg-gray-200 flex items-center text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-gray-500 focus:ring-offset-2">
+                    <button className="bg-transparent border-EnumDarkblue border border-solid flex items-center text-EnumDarkblue2 px-4 py-2 rounded-md  focus:outline-none focus:ring-gray-500 focus:ring-offset-2">
                         More Actions
                         <span>
                             <FiMoreVertical />
