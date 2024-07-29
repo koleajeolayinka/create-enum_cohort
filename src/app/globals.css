@@ -71,6 +71,9 @@
         --input: 217.2 32.6% 17.5%;
         --ring: 212.7 26.8% 83.9%;
     }
+    .active-button {
+        border: 1px solid #095AD3;
+    }
 }
 
 
@@ -79,6 +82,19 @@
         @apply border-border;
         color: #475661;
     }
+    /* Your Tailwind CSS file or a <style> tag within the component */
+
+    /* Hide default scrollbar */
+    .scroll-area::-webkit-scrollbar {
+        @apply w-0; /* Apply Tailwind's width utility to set width to 0 */
+    }
+
+    /* Add a pseudo-element to create a solid border */
+    .scroll-area::after {
+        @apply content-[''] absolute top-0 right-0 bottom-0 w-1 bg-gray-300 rounded pointer-events-none;
+        /* Apply Tailwind classes to create a 1px wide, gray, rounded border */
+    }
+
 {
     .navButton {
         border-radius: 8px 8px 0 0;
