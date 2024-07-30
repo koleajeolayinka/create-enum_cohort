@@ -31,12 +31,12 @@ const ModuleBlock = () => {
         setIsModalOpen(false);
 
         // Increase height for the next module if it exists
-        // setLineHeights(lineHeights.map((height, index) => {
-        //     if (modules[index].name === moduleName && index < modules.length - 1) {
-        //         return height + 50; // Increase the height of the next module
-        //     }
-        //     return height;
-        // }));
+        setLineHeights(lineHeights.map((height, index) => {
+            if (modules[index].name === moduleName && index < modules.length - 1) {
+                return height + 50; // Increase the height of the next module
+            }
+            return height;
+        }));
     };
 
     const toggleLineColor = (sectionName: string) => {
@@ -47,23 +47,23 @@ const ModuleBlock = () => {
         setActiveButton(isOpen ? sectionName : null);
 
         // Reset height for the next module if the current module is closed
-        // if (!isOpen) {
-        //     setLineHeights(lineHeights.map((height, index) =>
-        //         modules[index].name === sectionName && index < modules.length - 1 ? height - 50 : height
-        //     ));
-        // }
+        if (!isOpen) {
+            setLineHeights(lineHeights.map((height, index) =>
+                modules[index].name === sectionName && index < modules.length - 1 ? height - 50 : height
+            ));
+        }
     };
 
     const toggleSubLineColor = (subSectionName: string) => {
         setActiveSubSection(subSectionName === activeSubSection ? null : subSectionName);
     };
 
-    const openModal = (moduleName: string, event: React.MouseEvent) => {
+    const openModal = (moduleName: string) => {
         const viewportHeight = window.innerHeight;
         const modalHeight = 320; // Assuming the modal height is 320px
-        const top = event.clientY + modalHeight > viewportHeight ? event.clientY - modalHeight : event.clientY;
+        const top = window.event.clientY + modalHeight > viewportHeight ? window.event.clientY - modalHeight : window.event.clientY;
         setSelectedModule(moduleName);
-        setModalPosition({ top, left: event.clientX });
+        setModalPosition({ top, left: window.event.clientX });
         setIsModalOpen(true);
     };
 
@@ -118,7 +118,7 @@ const ModuleBlock = () => {
                                         {module.name} - Introduction...
                                     </p>
 
-                                    <PlusBar color={activeButton === module.name ? '#095AD3' : '#667085'} onClick={(e) => openModal(module.name, e)} />
+                                    <PlusBar color={activeButton === module.name ? '#095AD3' : '#667085'} onClick={() => openModal(module.name)} />
                                 </button>
                             </section>
                             {activeSection === module.name && (
