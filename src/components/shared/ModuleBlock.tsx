@@ -58,12 +58,13 @@ const ModuleBlock = () => {
         setActiveSubSection(subSectionName === activeSubSection ? null : subSectionName);
     };
 
-    const openModal = (moduleName: string) => {
+    const openModal = (moduleName: string) => (e: MouseEvent) => {
         const viewportHeight = window.innerHeight;
-        const modalHeight = 320; // Assuming the modal height is 320px
-        const top = window.event.clientY + modalHeight > viewportHeight ? window.event.clientY - modalHeight : window.event.clientY;
+        const modalHeight = 320;
+        const top = e.clientY + modalHeight > viewportHeight ? e.clientY - modalHeight : e.clientY;
+
         setSelectedModule(moduleName);
-        setModalPosition({ top, left: window.event.clientX });
+        setModalPosition({ top, left: e.clientX });
         setIsModalOpen(true);
     };
 
@@ -118,7 +119,12 @@ const ModuleBlock = () => {
                                         {module.name} - Introduction...
                                     </p>
 
-                                    <PlusBar color={activeButton === module.name ? '#095AD3' : '#667085'} onClick={() => openModal(module.name)} />
+                                    {/*<PlusBar color={activeButton === module.name ? '#095AD3' : '#667085'} onClick={(e) => openModal(module.name, e)} />*/}
+                                    <PlusBar
+                                        color={activeButton === module.name ? '#095AD3' : '#667085'}
+                                        onClick={openModal(module.name)}
+                                    />
+
                                 </button>
                             </section>
                             {activeSection === module.name && (

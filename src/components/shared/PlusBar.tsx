@@ -1,6 +1,6 @@
 type PlusBarProps = {
     color?: string;
-    onClick?: () => void;
+    onClick?: (e: MouseEvent) => void;
     props?: any;
     className?: string;
 }
