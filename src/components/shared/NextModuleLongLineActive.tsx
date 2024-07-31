@@ -1,27 +1,31 @@
 type NextModuleLongLineActiveProps = {
-    className?: string;
-    connectionColour?: string;
-    height?: number;
+  className?: string;
+  connectionColour?: string;
+  height?: number;
 };
 
-const NextModuleLongLineActive = ({className, connectionColour, height}: NextModuleLongLineActiveProps) => {
+const NextModuleLongLineActive = ({
+  className,
+  connectionColour,
+  height,
+}: NextModuleLongLineActiveProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={`${className} mb-4 -mt-28`}>
       <svg
         width="27"
-        height="148"
-        viewBox="0 0 27 148"
+        height="157"
+        viewBox="0 0 27 157"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M25 142H21C9.95431 142 1 133.046 1 122L1 0.999997"
+          d="M25 151H21C9.95431 151 1 142.046 1 131L1 0.999994"
           stroke="#D0D5DD"
           stroke-width="2"
           stroke-linecap="round"
         />
         <path
-          d="M21 147L26 142L21 137"
+          d="M21 156L26 151L21 146"
           stroke="#D0D5DD"
           stroke-width="2"
           stroke-linecap="round"

@@ -1,3 +1,4 @@
+// src/components/shared/ModuleBlock.tsx
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import FirstLineConnection from "./FirstLineConnection";
@@ -5,6 +6,7 @@ import SubModuleLineConnection from "./SubModuleLineConnection";
 import LineConnection from "./LineConnection";
 import PlusBar from "./PlusBar";
 import SubModuleLongLine from "../shared/SubModuleLongLine";
+import NextModuleLongLineActive from "./NextModuleLongLineActive";
 
 const ModuleBlock = () => {
     const [modules, setModules] = useState<{ name: string, lessons: string[] }[]>([{ name: "Module 1", lessons: [] }]);
@@ -18,9 +20,17 @@ const ModuleBlock = () => {
     const [lineHeights, setLineHeights] = useState<number[]>([100]); // Default height for each module
     const modalRef = useRef<HTMLDivElement>(null);
 
+    const [activeNextModule, setActiveNextModule] = useState<string | null>(null);
+
     const addModule = () => {
-        setModules([...modules, { name: `Module ${modules.length + 1}`, lessons: [] }]);
+        const newModuleName = `Module ${modules.length + 1}`;
+        setModules([...modules, { name: newModuleName, lessons: [] }]);
         setLineHeights([...lineHeights, 100]); // Add default height for the new module
+
+        // Set the new module as the active next module if the current active section is not the last module
+        if (activeSection && modules.findIndex(module => module.name === activeSection) < modules.length - 1) {
+            setActiveNextModule(newModuleName);
+        }
     };
 
     const addLesson = (moduleName: string) => {
@@ -31,16 +41,13 @@ const ModuleBlock = () => {
         ));
         setIsModalOpen(false);
 
-        // Increase height for the next module if it exists
-        setLineHeights(lineHeights.map((height, index) => {
-            if (modules[index].name === moduleName && index < modules.length) {
-                return height + 50; // Increase the height of the next module
-            }
-            return height;
-        }));
-
         // Ensure the module remains open after adding a submodule
         setActiveSection(moduleName);
+
+        const moduleIndex = modules.findIndex(module => module.name === moduleName);
+        if (moduleIndex < modules.length - 1) {
+            setActiveNextModule(modules[moduleIndex + 1].name);
+        }
     };
 
     const toggleLineColor = (sectionName: string) => {
@@ -50,11 +57,13 @@ const ModuleBlock = () => {
         setFontSize(isOpen ? "text-sm" : "text-base");
         setActiveButton(isOpen ? sectionName : null);
 
-        // Reset height for the next module if the current module is closed
         if (!isOpen) {
-            setLineHeights(lineHeights.map((height, index) =>
-                modules[index].name === sectionName && index < modules.length  ? height - 50 : height
-            ));
+            setActiveNextModule(null);
+        } else {
+            const moduleIndex = modules.findIndex(module => module.name === sectionName);
+            if (moduleIndex < modules.length - 1) {
+                setActiveNextModule(modules[moduleIndex + 1].name);
+            }
         }
     };
 
@@ -106,11 +115,19 @@ const ModuleBlock = () => {
                                         connectionColour={activeSection === module.name ? "#095AD3" : "#D0D5DD"}
                                     />
                                 ) : (
-                                    <LineConnection
-                                        className={`-mt-16 ${index === 1 ? "z-10" : "z-0"}`}
-                                        connectionColour={activeSection === module.name ? "#095AD3" : "#D0D5DD"}
-                                        height={lineHeights[index]} // Pass the height prop
-                                    />
+                                    activeNextModule === module.name ? (
+                                        <NextModuleLongLineActive
+                                            className={`${index === 1 ? "z-10" : "z-0"}`}
+                                            connectionColour="#095AD3"
+                                            height={lineHeights[index]} // Pass the height prop
+                                        />
+                                    ) : (
+                                        <LineConnection
+                                            className={`-mt-16 ${index === 1 ? "z-10" : "z-0"}`}
+                                            connectionColour={activeSection === module.name ? "#095AD3" : "#D0D5DD"}
+                                            height={lineHeights[index]} // Pass the height prop
+                                        />
+                                    )
                                 )}
 
                                 <button
@@ -133,12 +150,12 @@ const ModuleBlock = () => {
                                             {lessonIndex === 0 ? (
                                                 <SubModuleLineConnection
                                                     className="z-50"
-                                                    connectionColour={activeSubSection === lesson ? "#095AD3" : "#D0D5DD"}
+                                                    connectionColour="#D0D5DD"
                                                 />
                                             ) : (
                                                 <SubModuleLongLine
                                                     className="z-50"
-                                                    connectionColour={activeSubSection === lesson ? "#095AD3" : "#D0D5DD"}
+                                                    connectionColour="#D0D5DD"
                                                 />
                                             )}
                                             <button
