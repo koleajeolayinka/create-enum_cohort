@@ -4,6 +4,7 @@ import FirstLineConnection from "./FirstLineConnection";
 import SubModuleLineConnection from "./SubModuleLineConnection";
 import LineConnection from "./LineConnection";
 import PlusBar from "./PlusBar";
+import SubModuleLongLine from "../shared/SubModuleLongLine";
 
 const ModuleBlock = () => {
     const [modules, setModules] = useState<{ name: string, lessons: string[] }[]>([{ name: "Module 1", lessons: [] }]);
@@ -32,11 +33,14 @@ const ModuleBlock = () => {
 
         // Increase height for the next module if it exists
         setLineHeights(lineHeights.map((height, index) => {
-            if (modules[index].name === moduleName && index < modules.length - 1) {
+            if (modules[index].name === moduleName && index < modules.length) {
                 return height + 50; // Increase the height of the next module
             }
             return height;
         }));
+
+        // Ensure the module remains open after adding a submodule
+        setActiveSection(moduleName);
     };
 
     const toggleLineColor = (sectionName: string) => {
@@ -49,7 +53,7 @@ const ModuleBlock = () => {
         // Reset height for the next module if the current module is closed
         if (!isOpen) {
             setLineHeights(lineHeights.map((height, index) =>
-                modules[index].name === sectionName && index < modules.length - 1 ? height - 50 : height
+                modules[index].name === sectionName && index < modules.length  ? height - 50 : height
             ));
         }
     };
@@ -58,13 +62,13 @@ const ModuleBlock = () => {
         setActiveSubSection(subSectionName === activeSubSection ? null : subSectionName);
     };
 
-    const openModal = (moduleName: string) => (e: MouseEvent) => {
+    const openModal = (moduleName: string, event: MouseEvent) => {
+        event.stopPropagation(); // Prevent the module from closing when the PlusBar is clicked
         const viewportHeight = window.innerHeight;
-        const modalHeight = 320;
-        const top = e.clientY + modalHeight > viewportHeight ? e.clientY - modalHeight : e.clientY;
-
+        const modalHeight = 320; // Assuming the modal height is 320px
+        const top = event.clientY + modalHeight > viewportHeight ? event.clientY - modalHeight : event.clientY;
         setSelectedModule(moduleName);
-        setModalPosition({ top, left: e.clientX });
+        setModalPosition({ top, left: event.clientX });
         setIsModalOpen(true);
     };
 
@@ -119,22 +123,24 @@ const ModuleBlock = () => {
                                         {module.name} - Introduction...
                                     </p>
 
-                                    {/*<PlusBar color={activeButton === module.name ? '#095AD3' : '#667085'} onClick={(e) => openModal(module.name, e)} />*/}
-                                    <PlusBar
-                                        color={activeButton === module.name ? '#095AD3' : '#667085'}
-                                        onClick={openModal(module.name)}
-                                    />
-
+                                    <PlusBar color={activeButton === module.name ? '#095AD3' : '#667085'} onClick={(e) => openModal(module.name, e)} />
                                 </button>
                             </section>
                             {activeSection === module.name && (
                                 <div className="">
                                     {module.lessons.map((lesson, lessonIndex) => (
                                         <section key={lessonIndex} className={"flex items-end gap-[0px] ml-9 "}>
-                                            <SubModuleLineConnection
-                                                className="z-50"
-                                                connectionColour={activeSubSection === lesson ? "#095AD3" : "#D0D5DD"}
-                                            />
+                                            {lessonIndex === 0 ? (
+                                                <SubModuleLineConnection
+                                                    className="z-50"
+                                                    connectionColour={activeSubSection === lesson ? "#095AD3" : "#D0D5DD"}
+                                                />
+                                            ) : (
+                                                <SubModuleLongLine
+                                                    className="z-50"
+                                                    connectionColour={activeSubSection === lesson ? "#095AD3" : "#D0D5DD"}
+                                                />
+                                            )}
                                             <button
                                                 className={`rounded-md bg-white px-4 py-2 text-left items-start w-[218px] ${
                                                     activeSubSection === lesson ? "active-button" : "border border-enumGrey5"
@@ -154,15 +160,18 @@ const ModuleBlock = () => {
                 </main>
             </div>
             {isModalOpen && (
-                <div ref={modalRef} className="fixed ml-14 w-[237px] h-[320px] max-h-[100vh] overflow-y-auto" style={{top: modalPosition.top, left: modalPosition.left}}>
+                <div ref={modalRef} className="fixed ml-14 w-[237px] h-[320px] max-h-[100vh] overflow-y-auto"
+                     style={{top: modalPosition.top, left: modalPosition.left}}>
                     <div className="bg-white p-4 rounded-md shadow-md border border-gray-200">
-                        <button className="block w-full bg-enumblueLight text-enumBlue2 font-bold py-2 px-4 rounded mb-2 text-left">
+                        <button
+                            className="block w-full bg-enumblueLight text-enumBlue2 font-bold py-2 px-4 rounded mb-2 text-left">
                             Add objective
                         </button>
 
                         <ul className="space-y-1">
                             <li>
-                                <button onClick={() => addLesson(selectedModule!)} className="block w-full text-gray-700 hover:text-gray-900 py-2 px-4 text-left">
+                                <button onClick={() => addLesson(selectedModule!)}
+                                        className="block w-full text-gray-700 hover:text-gray-900 py-2 px-4 text-left">
                                     Add lesson
                                 </button>
                             </li>

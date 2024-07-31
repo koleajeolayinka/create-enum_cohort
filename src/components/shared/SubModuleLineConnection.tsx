@@ -8,7 +8,7 @@ const SubModuleLineConnection = ({
                             connectionColour,
                         }: LineConnectionProps) => {
     return (
-        <div className={`mb-4 ${className}`}>
+        <div className={` mb-4 ${className}`}>
             <svg
                 width="12"
                 height="40"
