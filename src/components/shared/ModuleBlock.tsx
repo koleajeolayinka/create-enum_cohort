@@ -47,6 +47,12 @@ const ModuleBlock = () => {
         const moduleIndex = modules.findIndex(module => module.name === moduleName);
         if (moduleIndex < modules.length - 1) {
             setActiveNextModule(modules[moduleIndex + 1].name);
+            // Increase the height of the next module's line by 50 units
+            setLineHeights(prevHeights => {
+                const newHeights = [...prevHeights];
+                newHeights[moduleIndex + 1] += 50;
+                return newHeights;
+            });
         }
     };
 
@@ -63,6 +69,8 @@ const ModuleBlock = () => {
             const moduleIndex = modules.findIndex(module => module.name === sectionName);
             if (moduleIndex < modules.length - 1) {
                 setActiveNextModule(modules[moduleIndex + 1].name);
+            } else {
+                setActiveNextModule(null);
             }
         }
     };
@@ -115,7 +123,7 @@ const ModuleBlock = () => {
                                         connectionColour={activeSection === module.name ? "#095AD3" : "#D0D5DD"}
                                     />
                                 ) : (
-                                    activeNextModule === module.name ? (
+                                    activeNextModule === module.name && modules[index - 1].lessons.length > 0 ? (
                                         <NextModuleLongLineActive
                                             className={`${index === 1 ? "z-10" : "z-0"}`}
                                             connectionColour="#095AD3"
@@ -125,7 +133,8 @@ const ModuleBlock = () => {
                                         <LineConnection
                                             className={`-mt-16 ${index === 1 ? "z-10" : "z-0"}`}
                                             connectionColour={activeSection === module.name ? "#095AD3" : "#D0D5DD"}
-                                            height={lineHeights[index]} // Pass the height prop
+                                            // height={lineHeights[index]} // Pass the height prop
+                                            height={100}
                                         />
                                     )
                                 )}
