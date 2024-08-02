@@ -19,15 +19,15 @@ const FirstLineConnection = ({
         <path
           d="M25 94H21C9.95431 94 1 85.0457 1 74L1 57"
           stroke={connectionColour}
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
         <path
           d="M21 99L26 94L21 89"
           stroke={connectionColour}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

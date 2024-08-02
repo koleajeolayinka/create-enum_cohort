@@ -10,7 +10,7 @@ const NextModuleLongLineActive = ({
                                       height = 157,
                                   }: NextModuleLongLineActiveProps) => {
     return (
-        <div className={`${className} mb-4 -mt-28`}>
+        <div className={`${className} mb-4 -mt-[7rem]`}>
             <svg
                 width="27"
                 height={height || 157} // Use the height prop or default to 157
