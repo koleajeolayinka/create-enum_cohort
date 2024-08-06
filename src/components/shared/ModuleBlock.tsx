@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PlusBar from "./PlusBar";
 import SubModuleLongLine from "../shared/SubModuleLongLine";
 import CurveArrow from "./CurveArrow";
+import SubModuleLineConnection from "./SubModuleLineConnection";
 
 const ModuleBlock = () => {
     const [modules, setModules] = useState<{ name: string, lessons: string[] }[]>([{ name: "Module 1", lessons: [] }]);
@@ -125,18 +126,17 @@ const ModuleBlock = () => {
 
     return (
         <div>
-            <div className="flex justify-between rounded-sm mt-[44px] bg-enumBlue2 text-enumWhite px-4 py-2 w-[300px] h-[40px] cursor-pointer">
+            <div className="flex z-50 justify-between rounded-sm mt-[44px] bg-enumBlue2 text-enumWhite px-4 py-2 w-[300px] h-[40px] cursor-pointer">
                 <h1 className={"text-enumWhite "}>Module</h1>
                 <PlusBar color={'white'} onClick={addModule} />
             </div>
             <div className="">
-                <main className="ml-4 pl-2 space-y-2 -mt-0">
+                <main className="ml-4 pl-2 -mt-0">
                     {modules.map((module, index) => (
                         <div key={index}>
-                            <section className="flex items-end gap-[0px] -mt-10">
+                            <section className={`flex z-1 items-end gap-[0px] ${index === 0 ? "-mt-0" : "-mt-10"}`}>
                                 <div className="grid">
-                                    <div className={`w-[3px] z-10 bg-enumPurple`} style={{ height: `${lineHeights[index]}px` }}></div>
-                                    <CurveArrow/>
+                                    <div className={`w-[2.5px]  bg-black`} style={{ height: `${index === 0 ? 10 : lineHeights[index]}px` }}></div>                                    <CurveArrow/>
                                 </div>
                                 <button
                                     className={`w-[242px] h-[40px] rounded-md bg-white px-2 py-2 text-left flex items-center justify-between ${
@@ -156,13 +156,13 @@ const ModuleBlock = () => {
                                     {module.lessons.map((lesson, lessonIndex) => (
                                         <section key={lessonIndex} className={"flex items-end gap-[0px] ml-9 "}>
                                             {lessonIndex === 0 ? (
-                                                <SubModuleLongLine
+                                                <SubModuleLineConnection
                                                     className="z-50"
                                                     connectionColour="#D0D5DD"
                                                 />
                                             ) : (
                                                 <SubModuleLongLine
-                                                    className="z-50"
+                                                    className="z-10"
                                                     connectionColour="#D0D5DD"
                                                 />
                                             )}

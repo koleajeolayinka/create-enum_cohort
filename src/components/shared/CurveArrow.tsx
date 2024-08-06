@@ -1,6 +1,6 @@
 const CurveArrow = () => {
     return (
-        <div className={'mb-[10px]'}>
+        <div className={'mb-[10px] z-50'}>
 
             <svg
                 width="27"
